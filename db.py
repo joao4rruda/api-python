@@ -9,12 +9,12 @@ class ItemDatabase:
         result = []
         query = "SELECT * FROM [DW_TEXNEO_HOMOLOG].[lizard].[VW_EST_NotaFiscalEntradaItem]"
         self.cursor.execute(query)
+        columns = [column[0] for column in self.cursor.description]  # Obtém os nomes das colunas
+
         for row in self.cursor.fetchall():
-            nota_fiscal_entrada_item_dict = {}
-            nota_fiscal_entrada_item_dict["ID"] = row[0]
-            nota_fiscal_entrada_item_dict["NEI_EmpresaCod"] = row[1]
-            nota_fiscal_entrada_item_dict["NEI_PedidoItemCod"] = row[2]
-            result.append(nota_fiscal_entrada_item_dict)
+            result.append(dict(zip(columns, row)))  # Mapeia colunas para valores
+
+        return result  # Retorna os dados em vez de imprimi-los
 
         print(result)
 
