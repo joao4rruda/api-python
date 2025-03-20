@@ -2,7 +2,7 @@ import pyodbc
 
 class ItemDatabase:
     def __init__(self):
-        self.conn = pyodbc.connect('')
+        self.conn = pyodbc.connect('DRIVER={ODBC Driver 17 for SQL Server};SERVER=172.16.0.41;DATABASE=DW_TEXNEO_HOMOLOG;UID=ext.lizardti.01;PWD=rzQUB%YjT&pSg6')  # Insira sua string de conexão
         self.cursor = self.conn.cursor()
 
     def get_NotaFiscalEntradaItem(self):
@@ -14,33 +14,28 @@ class ItemDatabase:
         for row in self.cursor.fetchall():
             result.append(dict(zip(columns, row)))  # Mapeia colunas para valores
 
-        return result  # Retorna os dados em vez de imprimi-los
-
-        print(result)
+        return result
 
     def get_PedidosCompraItem(self):
+        result = []
         query = "SELECT * FROM [DW_TEXNEO_HOMOLOG].[lizard].[VW_SUP_PedidosCompraItem]"
         self.cursor.execute(query)
+        columns = [column[0] for column in self.cursor.description]  # Obtém os nomes das colunas
+
         for row in self.cursor.fetchall():
-            print(row)
+            result.append(dict(zip(columns, row)))  # Mapeia colunas para valores
+
+        return result
 
     def get_SolicitacaoCompraItem(self):
+        result = []
         query = "SELECT * FROM [DW_TEXNEO_HOMOLOG].[lizard].[VW_SUP_SolicitacaoCompraItem]"
         self.cursor.execute(query)
+        columns = [column[0] for column in self.cursor.description]  # Obtém os nomes das colunas
+
         for row in self.cursor.fetchall():
-            print(row)
+            result.append(dict(zip(columns, row)))
 
-    def get_item(self, item_id):
-        pass
-
-    def add_item(self, id, body_object):
-        pass
-
-    def put_item(self, id, body_object):
-        pass
-
-    def delete_item(self, item_id):
-        pass
+        return result
 
 db = ItemDatabase()
-db.get_NotaFiscalEntradaItem()
