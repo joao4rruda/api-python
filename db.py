@@ -6,10 +6,17 @@ class ItemDatabase:
         self.cursor = self.conn.cursor()
 
     def get_NotaFiscalEntradaItem(self):
+        result = []
         query = "SELECT * FROM [DW_TEXNEO_HOMOLOG].[lizard].[VW_EST_NotaFiscalEntradaItem]"
         self.cursor.execute(query)
         for row in self.cursor.fetchall():
-            print(row)
+            nota_fiscal_entrada_item_dict = {}
+            nota_fiscal_entrada_item_dict["ID"] = row[0]
+            nota_fiscal_entrada_item_dict["NEI_EmpresaCod"] = row[1]
+            nota_fiscal_entrada_item_dict["NEI_PedidoItemCod"] = row[2]
+            result.append(nota_fiscal_entrada_item_dict)
+
+        print(result)
 
     def get_PedidosCompraItem(self):
         query = "SELECT * FROM [DW_TEXNEO_HOMOLOG].[lizard].[VW_SUP_PedidosCompraItem]"
