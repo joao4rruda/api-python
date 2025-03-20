@@ -2,7 +2,7 @@ import pyodbc
 
 class ItemDatabase:
     def __init__(self):
-        self.conn = pyodbc.connect('DRIVER={SQL Server};SERVER=172.16.0.41;DATABASE=DW_TEXNEO_HOMOLOG;UID=ext.lizardti.01;PWD=rzQUB%YjT&pSg6')
+        self.conn = pyodbc.connect('')
         self.cursor = self.conn.cursor()
 
     def get_NotaFiscalEntradaItem(self):
